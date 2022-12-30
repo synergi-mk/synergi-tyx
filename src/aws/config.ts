@@ -28,7 +28,6 @@ export class SecretsManagerConfig extends CoreConfiguration {
     This.expiry = Date.now() + LIFETIME;
     This.cache = This.cache || {};
 
-    this.log.debug(`Loading secret for names: ${this.names}`);
     for (const name of this.names) {
       const id = `${this.appId}/${this.stage}/${name}`.toLowerCase();
       this.log.debug('Load: %s', id);
@@ -44,14 +43,11 @@ export class SecretsManagerConfig extends CoreConfiguration {
   }
 
   protected retrive(name: string) {
-    this.log.debug(`Retriving secret: ${name}`);
-    this.log.debug(`from cache secret: ${JSON.stringify(This.cache)}`);
     return This.cache && This.cache[name.toLowerCase()];
   }
 
   private async load(id: string) {
     const client = new SecretsManager();
-    this.log.debug(`Loading secret: ${id}`);
     let data: SecretsManager.GetSecretValueResponse;
     try {
       data = await client.getSecretValue({ SecretId: id }).promise();

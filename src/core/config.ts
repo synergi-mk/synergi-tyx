@@ -93,11 +93,8 @@ export class CoreConfiguration implements Configuration {
   protected secret<T = string>(group: 'core' | 'app' | 'db' | 'service', name: string, key?: string, prop?: string): T {
     const path = CoreConfiguration.nameKey(group, name);
     const env = CoreConfiguration.envKey(group, name, key, prop);
-    const tmp = CoreConfiguration.objKey(group, name, key, prop);
-    this.log.debug(`Retrieving secret ${path}`);
+    this.log.debug(`Retrieving secret ${path} or from env ${env}`);
     const data = this.retrive(path);
-    this.log.debug('Retrive secret:', tmp);
-    this.log.debug('Retrive secret data:', data ?? '');
     this.log.debug(`Env vars: ${JSON.stringify(process.env)}`);
     if (data) {
       return key ? (prop ? data[key] && data[key][prop] : data[key]) : data;

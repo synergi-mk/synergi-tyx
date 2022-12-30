@@ -262,13 +262,11 @@ export class CoreSecurity implements Security {
 
   protected secret(sub: string, iss: string, aud: string): string {
     let secret: string;
-    this.log.debug(`Tyx secret call appId: ${this.config.appId}, sub: ${sub}, iss: ${iss}, uad: ${aud} context ${ JSON.stringify(this.config)}`);
     if (sub && sub.startsWith('user:')) secret = this.config.httpSecret;
     else if (sub === 'internal' && aud === this.config.appId && iss === aud) secret = this.config.internalSecret;
     else if (sub === 'remote' && aud === this.config.appId && iss === aud) secret = this.config.internalSecret;
     else if (sub === 'remote' && aud === this.config.appId && iss !== aud) secret = this.config.remoteSecret(iss);
     else if (sub === 'remote' && iss === this.config.appId && iss !== aud) secret = this.config.remoteSecret(aud);
-    this.log.debug(`Tyx secret data ${secret}`);
     if (!secret) {
       throw new Unauthorized(`Can not resolve token secret for subject: [${sub}], issuer: [${iss}], audience: [${aud}]`);
     }
