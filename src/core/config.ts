@@ -97,6 +97,7 @@ export class CoreConfiguration implements Configuration {
     this.log.debug(`Retrieving secret ${path}`);
     const data = this.retrive(path);
     this.log.debug('Retrive secret:', tmp);
+    this.log.debug('Retrive secret data:', data ?? '');
     if (data) {
       return key ? (prop ? data[key] && data[key][prop] : data[key]) : data;
     } else {
