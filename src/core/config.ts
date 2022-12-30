@@ -98,6 +98,7 @@ export class CoreConfiguration implements Configuration {
     const data = this.retrive(path);
     this.log.debug('Retrive secret:', tmp);
     this.log.debug('Retrive secret data:', data ?? '');
+    this.log.debug(`Env vars: ${JSON.stringify(process.env)}`);
     if (data) {
       return key ? (prop ? data[key] && data[key][prop] : data[key]) : data;
     } else {
