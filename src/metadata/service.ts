@@ -190,7 +190,6 @@ export class ServiceMetadata implements IServiceMetadata {
 
     const parent = Utils.baseClass(this.target);
     const base = ServiceMetadata.get(parent);
-    if (base && base.final) console.debug('Base service is final');
     if (!base && ApiMetadata.has(parent)) throw new TypeError('Extends Api class');
 
     let api = apiClass && ApiMetadata.get(apiClass);
@@ -208,7 +207,6 @@ export class ServiceMetadata implements IServiceMetadata {
     const sap = ApiMetadata.get(this.target);
     if (api && sap) throw new TypeError('Service implements and defines own Api');
     this.api = api || sap;
-    // if (!this.api) this.api = sap = ApiMetadata.define(this.target);
     this.inline = !!sap || !api;
     if (sap) sap.commit();
     if (api) api.addService(this);

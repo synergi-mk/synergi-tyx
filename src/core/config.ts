@@ -94,6 +94,7 @@ export class CoreConfiguration implements Configuration {
     const path = CoreConfiguration.nameKey(group, name);
     const env = CoreConfiguration.envKey(group, name, key, prop);
     const tmp = CoreConfiguration.objKey(group, name, key, prop);
+    this.log.debug(`Retrieving secret ${path}`);
     const data = this.retrive(path);
     this.log.debug('Retrive secret:', tmp);
     if (data) {
