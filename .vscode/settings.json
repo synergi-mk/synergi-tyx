@@ -27,12 +27,12 @@
     "editor.formatOnSave": true,
     "[typescript]": {
         "editor.codeActionsOnSave": {
-            "source.organizeImports": false,
+            "source.organizeImports": "never"
         }
     },
     "[typescriptreact]": {
         "editor.codeActionsOnSave": {
-            "source.organizeImports": false
+            "source.organizeImports": "never"
         }
     }
 }
