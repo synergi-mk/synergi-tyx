@@ -20,10 +20,10 @@ export class ColumnMetadataSchema implements IColumnMetadata {
   @Field(String) role: VarRole;
   @Field() mandatory: boolean;
   @Field(Object) design: IDesignMetadata;
-  @Field(ref => VarResolutionSchema) res: IVarResolution;
+  @Field((ref) => VarResolutionSchema) res: IVarResolution;
 
   @Field(String) target: Class;
-  @Field(ref => EntityMetadataSchema) entityMetadata: IEntityMetadata;
+  @Field((ref) => EntityMetadataSchema) entityMetadata: IEntityMetadata;
   @Field() propertyName: string;
   @Field(String) type: ColumnType;
   @Field(0) precision?: number;
@@ -43,6 +43,6 @@ export class ColumnMetadataSchema implements IColumnMetadata {
   @Field() generateStrategy: 'increment' | 'uuid';
 
   public static RESOLVERS: SchemaResolvers<IColumnMetadata> = {
-    target: obj => SchemaUtils.label(obj.target),
+    target: (obj) => SchemaUtils.label(obj.target),
   };
 }

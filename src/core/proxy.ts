@@ -10,10 +10,10 @@ export abstract class BaseProxy {
   @Logger()
   protected log: Logger;
 
-  @Inject(alias => Configuration)
+  @Inject((alias) => Configuration)
   protected config: Configuration;
 
-  @Inject(alias => Security)
+  @Inject((alias) => Security)
   protected security: Security;
 
   constructor() {
@@ -48,7 +48,7 @@ export abstract class BaseProxy {
     }
   }
 
-  protected abstract async token(call: RemoteRequest): Promise<string>;
+  protected abstract token(call: RemoteRequest): Promise<string>;
 
-  protected abstract async invoke(call: RemoteRequest): Promise<any>;
+  protected abstract invoke(call: RemoteRequest): Promise<any>;
 }

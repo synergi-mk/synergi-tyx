@@ -113,7 +113,7 @@ export class EntityMetadata extends TypeMetadata implements IEntityMetadata {
 
   public resolve(database: DatabaseMetadata): void {
     this.database = database;
-    this.columns.forEach(col => col.resolve(database, this));
-    this.relations.forEach(rel => rel.resolve(database, this));
+    this.columns.forEach((col) => col.resolve(database, this));
+    this.relations.forEach((rel) => rel.resolve(database, this));
   }
 }

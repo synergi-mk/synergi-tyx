@@ -128,7 +128,7 @@ export class ThriftToolkit {
     const registry = Registry.copy();
     const dbs = Object.values(registry.DatabaseMetadata).sort((a, b) => a.name.localeCompare(b.name));
     const apis = Object.values(registry.ApiMetadata)
-      .filter(a => !a.isCore())
+      .filter((a) => !a.isCore())
       .sort((a, b) => a.name.localeCompare(b.name));
     const enums = Object.values(registry.EnumMetadata).sort((a, b) => a.name.localeCompare(b.name));
 
@@ -474,8 +474,8 @@ export class ThriftToolkit {
     thrift += `service ${schema.metadata.target.name} {\n`;
     for (const entity of Object.values(schema.entities)) {
       thrift += `  // -- ${entity.name}\n`;
-      if (entity.query) entity.query.forEach(line => thrift += `  ` + line);
-      if (entity.mutation) entity.mutation.forEach(line => thrift += `  ` + line);
+      if (entity.query) entity.query.forEach((line) => thrift += `  ` + line);
+      if (entity.mutation) entity.mutation.forEach((line) => thrift += `  ` + line);
     }
     thrift += `} (kind="Database")\n`;
     for (const entity of Object.values(schema.entities)) {
@@ -599,7 +599,7 @@ export class ThriftToolkit {
       temp.push(create);
       temp.push(update);
     }
-    const inputs = temp.map(x => `struct ${ARGS}${name}${x}\n} (kind = "Expression")\n`);
+    const inputs = temp.map((x) => `struct ${ARGS}${name}${x}\n} (kind = "Expression")\n`);
 
     const queryInput = `1: optional ${ARGS}${name}QueryExpr query`;
     const query = [

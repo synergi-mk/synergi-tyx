@@ -47,7 +47,7 @@ export abstract class CoreServer {
     }
     this.server.listen(port || 5000);
     this.log.info('👌  Server initialized.');
-    paths.forEach(p => this.log.info(`${p.httpMethod} http://localhost:${port}${p.path}`));
+    paths.forEach((p) => this.log.info(`${p.httpMethod} http://localhost:${port}${p.path}`));
     this.log.info('🚀  Server started at %s ...', port);
     return this.server;
   }
@@ -65,7 +65,7 @@ export abstract class CoreServer {
       const resource = meta.resource;
       // TODO: Regex
       let parts = resource.split('{');
-      parts = parts.map(p => p.replace('}', ''));
+      parts = parts.map((p) => p.replace('}', ''));
       let path = parts.join(':');
       // this.log.info("Add route: %s >> %s", hd, path);
       const baseRoute = `${httpMethod} ${path}`;
@@ -88,7 +88,7 @@ export abstract class CoreServer {
     const routes = Koa.router();
     const rawBody = Koa.rawBody();
     app.use(async (ctx, next) => {
-      Object.entries(this.HEADERS).forEach(h => ctx.set(h[0], h[1]));
+      Object.entries(this.HEADERS).forEach((h) => ctx.set(h[0], h[1]));
       return next();
     });
     for (const { httpMethod, path, resource } of paths) {
@@ -117,7 +117,7 @@ export abstract class CoreServer {
     const paths = Array.isArray(baseOrPaths) ? baseOrPaths : this.paths(basePath);
     const app: Express.Express = Express.create();
     app.use((req, res, next) => {
-      Object.entries(this.HEADERS).forEach(h => res.setHeader(h[0], h[1]));
+      Object.entries(this.HEADERS).forEach((h) => res.setHeader(h[0], h[1]));
       next();
     });
     app.use(Express.bodyParser().text({ type: ['*/json', 'text/*'], defaultCharset: 'utf-8', ...extraArgs }));

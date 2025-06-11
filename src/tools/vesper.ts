@@ -72,14 +72,14 @@ function resolver(target: string, relations: Record<string, { target: string, ty
     import { ${target} } from "../../entity";
     import { TypeOrm, ToolkitArgs, ToolkitContext, ToolkitInfo } from "../../toolkit";\n` +
     Object.values(relations)
-      .filter(r => r.target !== target)
-      .map(r => `import { ${r.target} } from "../../entity/${r.target}";`)
+      .filter((r) => r.target !== target)
+      .map((r) => `import { ${r.target} } from "../../entity/${r.target}";`)
       .join('\n') + `
 
     @Resolver(${target})
     export class ${target}Resolver implements ResolverInterface<${target}> {
         constructor(public _manager: EntityManager) { }
-    ` + Object.entries(relations).map(rel => `
+    ` + Object.entries(relations).map((rel) => `
         @Resolve()
         public async ${rel[0]}(root: ${target}, args: ToolkitArgs, context: ToolkitContext, info?: ToolkitInfo)`
         + `: Promise<${rel[1].target}${rel[1].type.endsWith('Many') ? '[]' : ''}> {
@@ -127,5 +127,5 @@ function indexes(schema: Record<string, any>) {
 }
 
 function back(prefix: string, text: string) {
-  return text.split('\n').map(line => line.replace(prefix, '')).join('\n').trim();
+  return text.split('\n').map((line) => line.replace(prefix, '')).join('\n').trim();
 }

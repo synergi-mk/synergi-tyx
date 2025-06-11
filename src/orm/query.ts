@@ -21,7 +21,7 @@ export namespace QueryToolkit {
     if (query && query.order) {
       order = Object.entries(query.order)
         .sort((a, b) => Math.abs(a[1]) - Math.abs(a[1]))
-        .map(e => ({ column: `${ALIAS}.${ES}${e[0]}${ES}`, asc: e[1] >= 0 }));
+        .map((e) => ({ column: `${ALIAS}.${ES}${e[0]}${ES}`, asc: e[1] >= 0 }));
     }
     where = pql + (pql && where ? ` ${orex ? 'OR' : 'AND'} ${where}` : where);
     return { where, params, order, skip: query && query.skip, take: query && query.take };

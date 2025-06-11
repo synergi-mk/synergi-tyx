@@ -62,9 +62,9 @@ export namespace Tson {
     if (typeof val === 'string') return tson({ s: val });
     if (val instanceof Date) return tson({ t: val.getTime() });
     if (val instanceof Buffer) return tson({ r: val.toString('base64') });
-    if (Array.isArray(val)) return tson({ l: val.map(i => marshal(i)) });
+    if (Array.isArray(val)) return tson({ l: val.map((i) => marshal(i)) });
     const map: any = new Map();
-    Object.entries(val).forEach(i => map.set(i[0], marshal(i[1])));
+    Object.entries(val).forEach((i) => map.set(i[0], marshal(i[1])));
     return tson({ m: map });
   }
   marshal.code = function (pkg?: string): string {
@@ -85,7 +85,7 @@ export namespace Tson {
     if (keys[0] === 's') return val.s;
     if (keys[0] === 't') return new Date(val.t);
     if (keys[0] === 'r') return Buffer.from(val.r, 'base64');
-    if (keys[0] === 'l') return ready ? val.l : val.l.map(i => unmarshal(i));
+    if (keys[0] === 'l') return ready ? val.l : val.l.map((i) => unmarshal(i));
     if (!(keys[0] === 'm')) return val;
     const obj: any = {};
     val.m.forEach((v, k) => obj[k] = ready ? v : unmarshal(v));
@@ -101,7 +101,7 @@ export namespace Tson {
   export function code(pkg?: string) {
     const code = Utils.indent(`
     const TSON = Symbol('tson');
-    const ATOMIC = [${ATOMIC.map(i => `'${i}'`).join(', ')}];
+    const ATOMIC = [${ATOMIC.map((i) => `'${i}'`).join(', ')}];
     ${tson.code()}
     ${isTson.code()}
     ${marshal.code(pkg)}

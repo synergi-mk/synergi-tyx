@@ -19,7 +19,7 @@ export class DatabaseProvider extends TypeOrmProvider implements Database {
   @Logger()
   protected log: Logger;
 
-  @Inject(alias => Configuration)
+  @Inject((alias) => Configuration)
   public config: Configuration;
 
   protected alias: string;
@@ -63,7 +63,7 @@ export class DatabaseProvider extends TypeOrmProvider implements Database {
     let logQueries: Boolean;
     if (typeof cfg === 'string') {
       tokens = cfg.split(/:|@|\/|;/);
-      logQueries = tokens.findIndex(x => x === 'logall') > 5;
+      logQueries = tokens.findIndex((x) => x === 'logall') > 5;
     } else {
       tokens[0] = cfg.username;
       tokens[1] = cfg.password;
@@ -120,7 +120,7 @@ export class DatabaseProvider extends TypeOrmProvider implements Database {
       database: tokens[5],
       // timezone: "Z",
       logging: logQueries ? 'all' : ['error'],
-      entities: Object.values(Registry.EntityMetadata).map(meta => meta.target),
+      entities: Object.values(Registry.EntityMetadata).map((meta) => meta.target),
     };
     this.readoptions = {
       name: this.alias + "read",
@@ -132,7 +132,7 @@ export class DatabaseProvider extends TypeOrmProvider implements Database {
       database: tokens[5],
       // timezone: "Z",
       logging: logQueries ? 'all' : ['error'],
-      entities: Object.values(Registry.EntityMetadata).map(meta => meta.target),
+      entities: Object.values(Registry.EntityMetadata).map((meta) => meta.target),
     };
 
     if (!TypeOrm.getConnectionManager().has(this.alias)) {

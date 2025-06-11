@@ -62,7 +62,7 @@ export class ApiError extends Error {
     let alt = data;
     if (Array.isArray(data)) {
       alt = [];
-      data.forEach(e => alt.push(ApiError.serializeData(e)));
+      data.forEach((e) => alt.push(ApiError.serializeData(e)));
     } else if (data instanceof Date) {
       alt = data.toISOString();
     } else if (typeof data === 'object') {
@@ -211,7 +211,7 @@ export class ApiErrorBuilder {
   public create(): ApiError {
     if (this.aReason) this.render(this.aReason);
     if (!this.aMessage && this.aReason) this.aMessage = this.aReason.message;
-    if (this.details) this.details.forEach(d => this.render(d));
+    if (this.details) this.details.forEach((d) => this.render(d));
 
     const ctor: any = this.type;
     const err: ApiError = new (ctor)(this.aMessage);

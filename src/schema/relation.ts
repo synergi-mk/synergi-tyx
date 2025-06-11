@@ -18,19 +18,19 @@ export class RelationMetadataSchema implements IRelationMetadata<any> {
   @Field(String) role: VarRole;
   @Field() mandatory: boolean;
   @Field(Object) design: IDesignMetadata;
-  @Field(item => VarMetadataSchema) item: IVarMetadata;
-  @Field(ref => VarResolutionSchema) res: IVarResolution;
+  @Field((item) => VarMetadataSchema) item: IVarMetadata;
+  @Field((ref) => VarResolutionSchema) res: IVarResolution;
 
   @Field(String) target: Class;
-  @Field(ref => EntityMetadataSchema) entityMetadata: IEntityMetadata;
+  @Field((ref) => EntityMetadataSchema) entityMetadata: IEntityMetadata;
   @Field() propertyName: string;
   @Field(String) relationType: RelationType;
-  @Field(ref => EntityMetadataSchema) inverseEntityMetadata: IEntityMetadata;
-  @Field(ref => RelationMetadataSchema) inverseRelation?: IRelationMetadata<any>;
-  @Field(list => [ColumnMetadataSchema]) joinColumns: IColumnMetadata[];
+  @Field((ref) => EntityMetadataSchema) inverseEntityMetadata: IEntityMetadata;
+  @Field((ref) => RelationMetadataSchema) inverseRelation?: IRelationMetadata<any>;
+  @Field((list) => [ColumnMetadataSchema]) joinColumns: IColumnMetadata[];
 
   public static RESOLVERS: SchemaResolvers<IRelationMetadata> = {
-    target: obj => SchemaUtils.label(obj.target),
+    target: (obj) => SchemaUtils.label(obj.target),
     joinColumns: (obj, args) => SchemaUtils.filter(obj.joinColumns, args),
   };
 }

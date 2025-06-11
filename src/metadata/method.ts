@@ -236,7 +236,7 @@ export class MethodMetadata implements IMethodMetadata {
     const route = HttpRouteMetadata.route(verb, resource, model);
     this.http = this.http || {};
     if (this.http[route]) throw new TypeError(`Duplicate HTTP route: [${route}]`);
-    const params = (resource.match(/\{([^}]+)\}/gi) || []).map(v => v.replace(/[\{\}]/g, ''));
+    const params = (resource.match(/\{([^}]+)\}/gi) || []).map((v) => v.replace(/[\{\}]/g, ''));
     const meta = new HttpRouteMetadata({
       target: this.target,
       api: undefined,
@@ -351,7 +351,7 @@ export class MethodMetadata implements IMethodMetadata {
   }
 
   public activate(core: CoreStatic): void {
-    const fun = this.args.map(a => a.name);
+    const fun = this.args.map((a) => a.name);
     const body = `return function ${this.name}(${fun.join(',')}) {
       return Core.invoke(this, '${this.name}', ...arguments);
     }`;

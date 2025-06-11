@@ -18,14 +18,14 @@ export class EntityMetadataSchema implements IEntityMetadata {
   @Field(String) kind: VarKind;
   @Field(String) target: Class;
   @Field() name: string;
-  @Field(ref => DatabaseMetadataSchema) database: IDatabaseMetadata;
-  @Field(list => [FieldMetadataSchema]) members: Record<string, IFieldMetadata>;
-  @Field(list => [ColumnMetadataSchema]) columns: IColumnMetadata[];
-  @Field(list => [ColumnMetadataSchema]) primaryColumns: IColumnMetadata[];
-  @Field(list => [RelationMetadataSchema]) relations: IRelationMetadata[];
+  @Field((ref) => DatabaseMetadataSchema) database: IDatabaseMetadata;
+  @Field((list) => [FieldMetadataSchema]) members: Record<string, IFieldMetadata>;
+  @Field((list) => [ColumnMetadataSchema]) columns: IColumnMetadata[];
+  @Field((list) => [ColumnMetadataSchema]) primaryColumns: IColumnMetadata[];
+  @Field((list) => [RelationMetadataSchema]) relations: IRelationMetadata[];
 
   public static RESOLVERS: SchemaResolvers<IEntityMetadata> = {
-    target: obj => SchemaUtils.label(obj.target),
+    target: (obj) => SchemaUtils.label(obj.target),
     members: (obj, args) => SchemaUtils.filter(obj.members, args),
     columns: (obj, args) => SchemaUtils.filter(obj.columns, args),
     primaryColumns: (obj, args) => SchemaUtils.filter(obj.primaryColumns, args),

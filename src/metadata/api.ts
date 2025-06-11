@@ -114,7 +114,7 @@ export class ApiMetadata implements IApiMetadata {
     const prev = Registry.ApiMetadata[this.name];
     if (prev && prev !== this) throw new TypeError(`Duplicate API name [${this.name}]`);
     Registry.ApiMetadata[this.name] = this;
-    Object.values(this.methods).forEach(m => m.commit(this));
+    Object.values(this.methods).forEach((m) => m.commit(this));
     return this;
   }
 
