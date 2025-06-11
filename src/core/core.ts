@@ -117,7 +117,7 @@ export class Core extends Registry {
 
   public static async activate(fresh?: boolean): Promise<CoreInstance> {
     await this.init();
-    let instance = !fresh && This.pool.find(x => x.state === ContainerState.Ready);
+    let instance = !fresh && This.pool.find((x) => x.state === ContainerState.Ready);
     try {
       if (!instance) {
         instance = new CoreInstance(this.config.application, Core.name, This.counter++);
@@ -205,8 +205,8 @@ export class Core extends Registry {
     const [provider, name] = entityId.split('.');
     const meta = Registry.DatabaseMetadata[provider];
     const db = ctx.container.get<EntityResolver>(meta.target);
-    const entity = db.metadata.entities.find(e => e.name === name);
-    const relation = rel && entity.relations.find(r => r.name === rel);
+    const entity = db.metadata.entities.find((e) => e.name === name);
+    const relation = rel && entity.relations.find((r) => r.name === rel);
     return { db, entity, relation };
   }
 

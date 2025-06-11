@@ -48,9 +48,9 @@ export namespace HttpUtils {
     const hdr: HttpHeader = { value: null, params: {} };
     if (!value) return hdr;
 
-    const parts = value.split(';').map(t => t.trim()).filter(t => t);
+    const parts = value.split(';').map((t) => t.trim()).filter((t) => t);
     parts.map((part) => {
-      const p = part.split('=').map(t => t.trim());
+      const p = part.split('=').map((t) => t.trim());
       if (p.length === 2) {
         const k = p[0];
         let v = p[1];
@@ -148,7 +148,7 @@ export namespace HttpUtils {
 
   export function canonicalHeaders(headers: Record<string, string>): Record<string, string> {
     const canon: Record<string, string> = {};
-    Object.keys(headers).forEach(h => canon[h.toLowerCase()] = headers[h]);
+    Object.keys(headers).forEach((h) => canon[h.toLowerCase()] = headers[h]);
     return canon;
   }
 

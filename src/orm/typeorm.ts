@@ -50,7 +50,7 @@ export class TypeOrmProvider implements EntityResolver {
     ctx: Context,
     info?: ResolverInfo
   ): Promise<any> {
-    const record = this.manager.create<any>(entity.name, args);
+    const record = this.manager.create<any, any>(entity.name, args);
     // let pks: Record<string, any> = {};
     // entity.primaryColumns.forEach(pk => pks[pk.name] = args[pk.name]);
     // TODO: Generate PK
@@ -67,7 +67,7 @@ export class TypeOrmProvider implements EntityResolver {
   ): Promise<any> {
     const record = this.manager.create(entity.name, args);
     const pks: Record<string, any> = {};
-    entity.primaryColumns.forEach(pk => pks[pk.name] = args[pk.name]);
+    entity.primaryColumns.forEach((pk) => pks[pk.name] = args[pk.name]);
     // TODO: Generate PK
     await this.manager.update(entity.name, pks, record);
     return await this.manager.findOne(entity.name, pks);
@@ -94,8 +94,8 @@ export class TypeOrmProvider implements EntityResolver {
     info?: ResolverInfo
   ): Promise<object[]> {
     const target = relation.inverseEntityMetadata.name;
-    const pks = entity.primaryColumns.map(col => col.propertyName);
-    const fks = relation.inverseRelation.joinColumns.map(col => col.propertyName);
+    const pks = entity.primaryColumns.map((col) => col.propertyName);
+    const fks = relation.inverseRelation.joinColumns.map((col) => col.propertyName);
     const keys: any = {};
     fks.forEach((fk, i) => keys[fk] = root[pks[i]]);
     return this.prepareQuery(target, keys, query, ctx).getMany();
@@ -110,10 +110,10 @@ export class TypeOrmProvider implements EntityResolver {
     info?: ResolverInfo
   ): Promise<object> {
     const target = relation.inverseEntityMetadata.name;
-    const pks = relation.inverseEntityMetadata.primaryColumns.map(p => p.propertyName);
+    const pks = relation.inverseEntityMetadata.primaryColumns.map((p) => p.propertyName);
     const fks = relation.joinColumns.length ?
-      relation.joinColumns.map(col => col.propertyName) :
-      entity.primaryColumns.map(col => col.propertyName);
+      relation.joinColumns.map((col) => col.propertyName) :
+      entity.primaryColumns.map((col) => col.propertyName);
     const keys: any = {};
     pks.forEach((pk, i) => keys[pk] = root[fks[i]]);
     return this.prepareQuery(target, keys, query, ctx).getOne();
@@ -128,8 +128,8 @@ export class TypeOrmProvider implements EntityResolver {
     info?: ResolverInfo
   ): Promise<object> {
     const target = relation.inverseEntityMetadata.name;
-    const pks = relation.inverseEntityMetadata.primaryColumns.map(p => p.propertyName);
-    const fks = relation.joinColumns.map(col => col.propertyName);
+    const pks = relation.inverseEntityMetadata.primaryColumns.map((p) => p.propertyName);
+    const fks = relation.joinColumns.map((col) => col.propertyName);
     const keys: any = {};
     pks.forEach((pk, i) => keys[pk] = root[fks[i]]);
     return this.prepareQuery(target, keys, query, ctx).getOne();
@@ -155,7 +155,7 @@ export class TypeOrmProvider implements EntityResolver {
     const sql = QueryToolkit.prepareSql(keys, query);
     const builder: TypeOrm.SelectQueryBuilder<any> = this.manager.createQueryBuilder(target, QueryToolkit.ALIAS)
       .where(sql.where, sql.params);
-    sql.order.forEach(ord => builder.addOrderBy(ord.column, ord.asc ? 'ASC' : 'DESC'));
+    sql.order.forEach((ord) => builder.addOrderBy(ord.column, ord.asc ? 'ASC' : 'DESC'));
     if (sql.skip) builder.skip(sql.skip);
     if (sql.take) builder.take(sql.take);
     return builder;

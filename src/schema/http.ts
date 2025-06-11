@@ -24,11 +24,11 @@ export class HttpBindingMetadataSchema implements IHttpBindingMetadata {
 @Schema()
 export class HttpRouteMetadataSchema implements IHttpRouteMetadata {
   @Field(String) target: Class;
-  @Field(ref => ApiMetadataSchema) api: IApiMetadata;
-  @Field(ref => MethodMetadataSchema) method: IMethodMetadata;
-  @Field(ref => HttpRouteMetadataSchema) base: IHttpRouteMetadata;
-  @Field(ref => HttpRouteMetadataSchema) over: IHttpRouteMetadata;
-  @Field(ref => ServiceMetadataSchema) servicer: IServiceMetadata;
+  @Field((ref) => ApiMetadataSchema) api: IApiMetadata;
+  @Field((ref) => MethodMetadataSchema) method: IMethodMetadata;
+  @Field((ref) => HttpRouteMetadataSchema) base: IHttpRouteMetadata;
+  @Field((ref) => HttpRouteMetadataSchema) over: IHttpRouteMetadata;
+  @Field((ref) => ServiceMetadataSchema) servicer: IServiceMetadata;
 
   @Field() route: string;
   @Field() verb: string;

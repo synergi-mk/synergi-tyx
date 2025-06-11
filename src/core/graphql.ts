@@ -24,7 +24,7 @@ import { Core } from './core';
 // tslint:disable-next-line:variable-name
 const GraphiQL = require('apollo-server-module-graphiql');
 
-export { PlaygroundRenderPageOptions, PlaygroundConfig };
+export { PlaygroundConfig, PlaygroundRenderPageOptions };
 
 @CoreService(GraphQL)
 export class CoreGraphQL implements GraphQL {
@@ -50,7 +50,7 @@ export class CoreGraphQL implements GraphQL {
   @Logger()
   private log: Logger;
 
-  @Inject(alias => Configuration)
+  @Inject((alias) => Configuration)
   protected config: Configuration;
 
   // @Memento()
@@ -116,7 +116,7 @@ export class CoreGraphQL implements GraphQL {
     });
     if (result.errors) {
       // TODO: Format the error
-      throw new BadRequest(result.errors.map(e => e.message).join(','));
+      throw new BadRequest(result.errors.map((e) => e.message).join(','));
     }
     return result.data;
   }
@@ -154,7 +154,8 @@ export class CoreGraphQL implements GraphQL {
       formatError: (err: any) => {
         err.code = err.originalError && err.originalError.code;
         return err;
-      }
+      },
+      schemaHash: undefined
     };
     const httpReq: HttpQueryRequest = {
       method: req.httpMethod,

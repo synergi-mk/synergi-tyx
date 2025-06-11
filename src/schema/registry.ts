@@ -36,7 +36,7 @@ export class DecoratorMetadataSchema implements IDecoratorMetadata {
   @Field([String]) targets: Record<string, Class>;
 
   public static RESOLVERS: SchemaResolvers<IDecoratorMetadata> = {
-    targets: obj => Object.values(obj.targets).map(t => SchemaUtils.label(t)),
+    targets: (obj) => Object.values(obj.targets).map((t) => SchemaUtils.label(t)),
   };
 }
 
@@ -51,7 +51,7 @@ export class DecorationMetadataSchema implements IDecorationMetadata {
   @Field(Object) args: Record<string, any>;
 
   public static RESOLVERS: SchemaResolvers<IDecorationMetadata> = {
-    target: obj => SchemaUtils.label(obj.target),
+    target: (obj) => SchemaUtils.label(obj.target),
   };
 }
 
@@ -59,36 +59,36 @@ export class DecorationMetadataSchema implements IDecorationMetadata {
 @Schema()
 export class CoreSchema implements MetadataRegistry {
 
-  @Field(list => [TypeMetadataSchema]) CoreMetadata: Record<string, ITypeMetadata>;
-  @Field(list => [DecoratorMetadataSchema]) DecoratorMetadata: Record<string, IDecoratorMetadata>;
-  @Field(list => [DecorationMetadataSchema]) DecorationMetadata: IDecorationMetadata[];
+  @Field((list) => [TypeMetadataSchema]) CoreMetadata: Record<string, ITypeMetadata>;
+  @Field((list) => [DecoratorMetadataSchema]) DecoratorMetadata: Record<string, IDecoratorMetadata>;
+  @Field((list) => [DecorationMetadataSchema]) DecorationMetadata: IDecorationMetadata[];
 
-  @Field(list => [ApiMetadataSchema]) ApiMetadata: Record<string, IApiMetadata>;
-  @Field(list => [ServiceMetadataSchema]) ServiceMetadata: Record<string, IServiceMetadata>;
-  @Field(list => [ProxyMetadataSchema]) ProxyMetadata: Record<string, IProxyMetadata>;
+  @Field((list) => [ApiMetadataSchema]) ApiMetadata: Record<string, IApiMetadata>;
+  @Field((list) => [ServiceMetadataSchema]) ServiceMetadata: Record<string, IServiceMetadata>;
+  @Field((list) => [ProxyMetadataSchema]) ProxyMetadata: Record<string, IProxyMetadata>;
 
-  @Field(list => [DatabaseMetadataSchema]) DatabaseMetadata: Record<string, IDatabaseMetadata>;
-  @Field(list => [EntityMetadataSchema]) EntityMetadata: Record<string, IEntityMetadata>;
-  @Field(list => [ColumnMetadataSchema]) ColumnMetadata: Record<string, IColumnMetadata>;
-  @Field(list => [RelationMetadataSchema]) RelationMetadata: Record<string, IRelationMetadata>;
+  @Field((list) => [DatabaseMetadataSchema]) DatabaseMetadata: Record<string, IDatabaseMetadata>;
+  @Field((list) => [EntityMetadataSchema]) EntityMetadata: Record<string, IEntityMetadata>;
+  @Field((list) => [ColumnMetadataSchema]) ColumnMetadata: Record<string, IColumnMetadata>;
+  @Field((list) => [RelationMetadataSchema]) RelationMetadata: Record<string, IRelationMetadata>;
 
-  @Field(list => [EnumMetadataSchema]) EnumMetadata: Record<string, IEnumMetadata>;
-  @Field(list => [ArgMetadataSchema]) InputMetadata: Record<string, ITypeMetadata>;
-  @Field(list => [TypeMetadataSchema]) TypeMetadata: Record<string, ITypeMetadata>;
+  @Field((list) => [EnumMetadataSchema]) EnumMetadata: Record<string, IEnumMetadata>;
+  @Field((list) => [ArgMetadataSchema]) InputMetadata: Record<string, ITypeMetadata>;
+  @Field((list) => [TypeMetadataSchema]) TypeMetadata: Record<string, ITypeMetadata>;
 
-  @Field(list => [MethodMetadataSchema]) MethodMetadata: Record<string, IMethodMetadata>;
-  @Field(list => [MethodMetadataSchema]) ResolverMetadata: Record<string, IMethodMetadata>;
-  @Field(list => [HttpRouteMetadataSchema]) HttpRouteMetadata: Record<string, IHttpRouteMetadata>;
-  @Field(list => [EventRouteMetadataSchema]) EventRouteMetadata: Record<string, IEventRouteMetadata[]>;
+  @Field((list) => [MethodMetadataSchema]) MethodMetadata: Record<string, IMethodMetadata>;
+  @Field((list) => [MethodMetadataSchema]) ResolverMetadata: Record<string, IMethodMetadata>;
+  @Field((list) => [HttpRouteMetadataSchema]) HttpRouteMetadata: Record<string, IHttpRouteMetadata>;
+  @Field((list) => [EventRouteMetadataSchema]) EventRouteMetadata: Record<string, IEventRouteMetadata[]>;
 
   // Additional runtime info
 
-  @Field(ref => ProcessInfoSchema) Process: ProcessInfoSchema;
-  @Field(list => [PackageInfoSchema]) Packages: PackageInfoSchema[];
-  @Field(list => [ModuleInfoSchema]) Modules: ModuleInfoSchema[];
-  @Field(list => [ServiceInfoSchema]) Global: ServiceInfoSchema[];
-  @Field(list => [ServiceInfoSchema]) Context: ServiceInfoSchema[];
-  @Field(list => [InstanceInfoSchema]) Pool: InstanceInfoSchema[];
+  @Field((ref) => ProcessInfoSchema) Process: ProcessInfoSchema;
+  @Field((list) => [PackageInfoSchema]) Packages: PackageInfoSchema[];
+  @Field((list) => [ModuleInfoSchema]) Modules: ModuleInfoSchema[];
+  @Field((list) => [ServiceInfoSchema]) Global: ServiceInfoSchema[];
+  @Field((list) => [ServiceInfoSchema]) Context: ServiceInfoSchema[];
+  @Field((list) => [InstanceInfoSchema]) Pool: InstanceInfoSchema[];
 
   public static get metadata() { return TypeMetadata.get(CoreSchema); }
 
@@ -97,7 +97,7 @@ export class CoreSchema implements MetadataRegistry {
     DecoratorMetadata: (obj, args) => SchemaUtils.filter(obj.DecoratorMetadata, args),
     DecorationMetadata: (obj, args) => {
       if (args.target) args.target = `[class: ${args.target}]`;
-      const mapped = obj.DecorationMetadata.map(meta => ({ ...meta, target: `[class: ${meta.target.name}]` }));
+      const mapped = obj.DecorationMetadata.map((meta) => ({ ...meta, target: `[class: ${meta.target.name}]` }));
       return SchemaUtils.filter(mapped as any[], args);
     },
     ApiMetadata: (obj, args) => SchemaUtils.filter(obj.ApiMetadata, args),

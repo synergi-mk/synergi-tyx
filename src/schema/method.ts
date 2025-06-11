@@ -18,8 +18,8 @@ import { SchemaUtils } from './utils';
 @Schema()
 export class MethodMetadataSchema implements IMethodMetadata {
   @Field(String) target: Class;
-  @Field(ref => ApiMetadataSchema) api: IApiMetadata;
-  @Field(ref => ApiMetadataSchema) base: IApiMetadata;
+  @Field((ref) => ApiMetadataSchema) api: IApiMetadata;
+  @Field((ref) => ApiMetadataSchema) base: IApiMetadata;
   @Field() type: MethodType;
 
   @Field(String) scope: ClassRef;
@@ -33,24 +33,24 @@ export class MethodMetadataSchema implements IMethodMetadata {
   @Field() mutation: boolean;
   @Field() resolver: boolean;
 
-  @Field(list => [ArgMetadataSchema]) args: IArgMetadata[];
-  @Field(ref => ResultMetadataSchema) result: IResultMetadata;
+  @Field((list) => [ArgMetadataSchema]) args: IArgMetadata[];
+  @Field((ref) => ResultMetadataSchema) result: IResultMetadata;
   @Field(Object) select: TypeSelect;
 
   @Field() contentType: string;
-  @Field(list => [HttpBindingMetadataSchema]) bindings: IHttpBindingMetadata[];
-  @Field(list => [HttpRouteMetadataSchema]) http: Record<string, IHttpRouteMetadata>;
-  @Field(list => [EventRouteMetadataSchema]) events: Record<string, IEventRouteMetadata>;
+  @Field((list) => [HttpBindingMetadataSchema]) bindings: IHttpBindingMetadata[];
+  @Field((list) => [HttpRouteMetadataSchema]) http: Record<string, IHttpRouteMetadata>;
+  @Field((list) => [EventRouteMetadataSchema]) events: Record<string, IEventRouteMetadata>;
 
   @Field() source: string;
 
   public static RESOLVERS: SchemaResolvers<IMethodMetadata> = {
-    target: obj => SchemaUtils.label(obj.target),
-    scope: obj => SchemaUtils.label(obj.scope),
+    target: (obj) => SchemaUtils.label(obj.target),
+    scope: (obj) => SchemaUtils.label(obj.scope),
     args: (obj, args) => SchemaUtils.filter(obj.args, args),
     bindings: (obj, args) => SchemaUtils.filter(obj.bindings, args),
     http: (obj, args) => SchemaUtils.filter(obj.http, args),
     events: (obj, args) => SchemaUtils.filter(obj.events, args),
-    source: obj => obj.target.prototype[obj.name].toString(),
+    source: (obj) => obj.target.prototype[obj.name].toString(),
   };
 }

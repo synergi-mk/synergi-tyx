@@ -41,7 +41,7 @@ const SCALARS: Record<string, GraphQLScalarType> = {
   }),
 };
 
-const DEF_SCALARS = Object.keys(SCALARS).map(s => `scalar ${s}`).join('\n');
+const DEF_SCALARS = Object.keys(SCALARS).map((s) => `scalar ${s}`).join('\n');
 
 const DEF_DIRECTIVES = `
 directive @metadata on OBJECT
@@ -311,7 +311,7 @@ export class GraphQLToolkit {
     // Enums
     schema += Object.values(this.enums)
       .sort((a, b) => a.name.localeCompare(b.name))
-      .map(m => m.model).join('\n') + '\n';
+      .map((m) => m.model).join('\n') + '\n';
 
     // Apis
     schema += Object.values(this.apis)
@@ -320,16 +320,16 @@ export class GraphQLToolkit {
         let res = '';
         if (api.queries) {
           res += 'extend type Query {\n  ';
-          res += Object.values(api.queries).map(q => q.name + q.signature).join('\n  ');
+          res += Object.values(api.queries).map((q) => q.name + q.signature).join('\n  ');
           res += '\n}\n';
         }
         if (api.mutations) {
           res += 'extend type Mutation {\n  ';
-          res += Object.values(api.mutations).map(c => c.name + c.signature).join('\n  ');
+          res += Object.values(api.mutations).map((c) => c.name + c.signature).join('\n  ');
           res += '\n}\n';
         }
         if (api.extensions) {
-          res += Object.values(api.extensions).map(r => r.extension).join('\n') + '\n';
+          res += Object.values(api.extensions).map((r) => r.extension).join('\n') + '\n';
         }
         if (res) res = `# -- API: ${api.metadata.name} -- #\n` + res;
         return res;
@@ -352,28 +352,28 @@ export class GraphQLToolkit {
     // Inputs
     schema += Object.values(this.inputs)
       .sort((a, b) => a.name.localeCompare(b.name))
-      .map(i => `# -- Input: ${i.metadata.name} --\n${i.model}`).join('\n')
+      .map((i) => `# -- Input: ${i.metadata.name} --\n${i.model}`).join('\n')
       + '\n';
 
     // Types
     schema += Object.values(this.types)
       .sort((a, b) => a.name.localeCompare(b.name))
-      .map(r => `# -- Type: ${r.metadata.name} --\n${r.model}`).join('\n')
+      .map((r) => `# -- Type: ${r.metadata.name} --\n${r.model}`).join('\n')
       + '\n\n';
 
     // Metadata
     schema += `# -- Metadata Types --\n`
       + Object.values(this.metadata)
         .sort((a, b) => a.name.localeCompare(b.name))
-        .map(m => m.model).join('\n')
+        .map((m) => m.model).join('\n')
       + `\n`;
 
     // Metadata
     schema += `# -- Metadata Filters --\n`
       + Object.values(this.metadata)
-        .filter(m => m.filter)
+        .filter((m) => m.filter)
         .sort((a, b) => a.name.localeCompare(b.name))
-        .map(m => m.filter).join('\n')
+        .map((m) => m.filter).join('\n')
       + `\n`;
 
     return Utils.indent(schema).trimLeft();
@@ -543,7 +543,7 @@ export class GraphQLToolkit {
       temp.push(create);
       temp.push(update);
     }
-    const inputs = temp.map(x => `input ${ARGS}${name}${x}\n}`);
+    const inputs = temp.map((x) => `input ${ARGS}${name}${x}\n}`);
 
     let query = `type ${db.name} {\n`;
     query += `  ${GET}${name}(${keys}): ${name}${ENTITY} @crud(auth: {}),\n`;

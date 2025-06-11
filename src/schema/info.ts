@@ -39,11 +39,11 @@ export class PackageInfoSchema implements PackageInfo {
   @Field(Any) json: any;
   @Field() level: number;
   @Field() moduleCount: number;
-  @Field(ref => PackageInfoSchema) parent: PackageInfo;
-  @Field(ref => ModuleInfoSchema) import: ModuleInfo;
-  @Field(list => [ModuleInfoSchema]) modules: ModuleInfo[];
-  @Field(list => [PackageInfoSchema]) imports: PackageInfo[];
-  @Field(list => [PackageInfoSchema]) uses: PackageInfo[];
+  @Field((ref) => PackageInfoSchema) parent: PackageInfo;
+  @Field((ref) => ModuleInfoSchema) import: ModuleInfo;
+  @Field((list) => [ModuleInfoSchema]) modules: ModuleInfo[];
+  @Field((list) => [PackageInfoSchema]) imports: PackageInfo[];
+  @Field((list) => [PackageInfoSchema]) uses: PackageInfo[];
 
   public static RESOLVERS: SchemaResolvers<PackageInfoSchema> = {
     modules: (obj, args) => SchemaUtils.filter(obj.modules, args),
@@ -59,8 +59,8 @@ export class ModuleInfoSchema implements ModuleInfo {
   @Field() file: string;
   @Field() size: number;
   @Field() level: number;
-  @Field(ref => ModuleInfoSchema) parent: ModuleInfo;
-  @Field(ref => PackageInfoSchema) package: PackageInfo;
+  @Field((ref) => ModuleInfoSchema) parent: ModuleInfo;
+  @Field((ref) => PackageInfoSchema) package: PackageInfo;
 }
 
 @Schema()
@@ -96,10 +96,10 @@ export class ProcessInfoSchema implements ProcessInfo {
   // Instance
   // @Field() instance: string;
   @Field(Any) node: any;
-  @Field(list => [CpuInfoSchema]) cpus: CpuInfo[];
-  @Field(list => [NetworkInfoSchema]) networks: NetworkInfo[];
+  @Field((list) => [CpuInfoSchema]) cpus: CpuInfo[];
+  @Field((list) => [NetworkInfoSchema]) networks: NetworkInfo[];
   // Package and code size
-  @Field(ref => ModuleInfoSchema) entry: ModuleInfo;
+  @Field((ref) => ModuleInfoSchema) entry: ModuleInfo;
   packages: PackageInfo[];
   modules: ModuleInfo[];
   public static RESOLVERS: SchemaResolvers<ProcessInfo> = {};

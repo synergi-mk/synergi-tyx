@@ -29,7 +29,7 @@ export class ServiceInfoSchema {
 export class InstanceInfoSchema {
   @Field() name: string;
   @Field() state: string;
-  @Field(list => [ServiceInfoSchema]) entries: ServiceInfoSchema[];
+  @Field((list) => [ServiceInfoSchema]) entries: ServiceInfoSchema[];
 
   public static get(ctx: Context) {
     return ctx.container;

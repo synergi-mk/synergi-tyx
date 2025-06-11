@@ -15,26 +15,26 @@ export class ProxyMetadataSchema implements IProxyMetadata {
   @Field() final: boolean;
   @Field() alias: string;
   @Field() inline: boolean;
-  @Field(ref => ApiMetadataSchema) api: IApiMetadata;
-  @Field(ref => ServiceMetadataSchema) base: IServiceMetadata;
+  @Field((ref) => ApiMetadataSchema) api: IApiMetadata;
+  @Field((ref) => ServiceMetadataSchema) base: IServiceMetadata;
 
   @Field() application: string = undefined;
   @Field() functionName: string = undefined;
 
-  @Field(list => [InjectMetadataSchema]) dependencies: Record<string, IInjectMetadata>;
-  @Field(item => [HandlerMetadataSchema]) handlers: Record<string, IHandlerMetadata>;
+  @Field((list) => [InjectMetadataSchema]) dependencies: Record<string, IInjectMetadata>;
+  @Field((item) => [HandlerMetadataSchema]) handlers: Record<string, IHandlerMetadata>;
 
-  @Field(ref => HandlerMetadataSchema) initializer: IHandlerMetadata;
-  @Field(ref => HandlerMetadataSchema) selector: IHandlerMetadata;
-  @Field(ref => HandlerMetadataSchema) activator: IHandlerMetadata;
-  @Field(ref => HandlerMetadataSchema) releasor: IHandlerMetadata;
+  @Field((ref) => HandlerMetadataSchema) initializer: IHandlerMetadata;
+  @Field((ref) => HandlerMetadataSchema) selector: IHandlerMetadata;
+  @Field((ref) => HandlerMetadataSchema) activator: IHandlerMetadata;
+  @Field((ref) => HandlerMetadataSchema) releasor: IHandlerMetadata;
 
   @Field() source: string;
 
   public static RESOLVERS: SchemaResolvers<IProxyMetadata> = {
-    target: obj => SchemaUtils.label(obj.target),
+    target: (obj) => SchemaUtils.label(obj.target),
     dependencies: (obj, args) => SchemaUtils.filter(obj.dependencies, args),
     handlers: (obj, args) => SchemaUtils.filter(obj.handlers, args),
-    source: obj => obj.target.toString(),
+    source: (obj) => obj.target.toString(),
   };
 }

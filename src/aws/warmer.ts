@@ -58,7 +58,7 @@ export class CoreWarmer {
   private nextFlush = 0;
   private nextPing = 0;
 
-  @Inject(api => Configuration)
+  @Inject((api) => Configuration)
   private config: CoreConfiguration;
 
   private settings: WarmerSettings;
@@ -151,7 +151,7 @@ export class CoreWarmer {
       }
 
       this.log.info('Wait ...');
-      await new Promise(resolve => setTimeout(() => resolve(), 1000));
+      await new Promise<void>((resolve) => setTimeout(() => resolve(), 1000));
     }
 
     let report = '';

@@ -1,3 +1,4 @@
+ 
 import { Request } from './core';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
@@ -15,6 +16,7 @@ export interface HttpRequest extends Request {
   pathParameters?: Record<string, string>;
   queryStringParameters?: Record<string, string>;
   body?: string | null;
+   
   buffer?: Buffer;
   isBase64Encoded?: boolean;
 

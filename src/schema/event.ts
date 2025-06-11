@@ -12,11 +12,11 @@ import { ServiceMetadataSchema } from './service';
 @Schema()
 export class EventRouteMetadataSchema implements IEventRouteMetadata {
   @Field(String) target: Class;
-  @Field(ref => ApiMetadataSchema) api: IApiMetadata;
-  @Field(ref => MethodMetadataSchema) method: IMethodMetadata;
-  @Field(ref => EventRouteMetadataSchema) base: IEventRouteMetadata;
-  @Field(ref => EventRouteMetadataSchema) over: IEventRouteMetadata;
-  @Field(ref => ServiceMetadataSchema) servicer: IServiceMetadata;
+  @Field((ref) => ApiMetadataSchema) api: IApiMetadata;
+  @Field((ref) => MethodMetadataSchema) method: IMethodMetadata;
+  @Field((ref) => EventRouteMetadataSchema) base: IEventRouteMetadata;
+  @Field((ref) => EventRouteMetadataSchema) over: IEventRouteMetadata;
+  @Field((ref) => ServiceMetadataSchema) servicer: IServiceMetadata;
 
   @Field() route: string;
   @Field() source: string;

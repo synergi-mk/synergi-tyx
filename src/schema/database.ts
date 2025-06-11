@@ -16,16 +16,16 @@ import { SchemaUtils } from './utils';
 export class DatabaseMetadataSchema implements IDatabaseMetadata {
   @Field(String) target: Class;
   @Field() alias: string;
-  @Field(ref => ServiceMetadataSchema) servicer: IServiceMetadata;
+  @Field((ref) => ServiceMetadataSchema) servicer: IServiceMetadata;
 
   @Field([String]) targets: Class[];
-  @Field(list => [EntityMetadataSchema]) entities: IEntityMetadata[];
-  @Field(list => [ColumnMetadataSchema]) columns: IColumnMetadata[];
-  @Field(list => [RelationMetadataSchema]) relations: IRelationMetadata<any>[];
+  @Field((list) => [EntityMetadataSchema]) entities: IEntityMetadata[];
+  @Field((list) => [ColumnMetadataSchema]) columns: IColumnMetadata[];
+  @Field((list) => [RelationMetadataSchema]) relations: IRelationMetadata<any>[];
 
   public static RESOLVERS: SchemaResolvers<IDatabaseMetadata> = {
-    target: obj => SchemaUtils.label(obj.target),
-    targets: obj => obj.targets && obj.targets.map(t => `[class: ${t.name}]`),
+    target: (obj) => SchemaUtils.label(obj.target),
+    targets: (obj) => obj.targets && obj.targets.map((t) => `[class: ${t.name}]`),
     entities: (obj, args) => SchemaUtils.filter(obj.entities, args),
     columns: (obj, args) => SchemaUtils.filter(obj.columns, args),
     relations: (obj, args) => SchemaUtils.filter(obj.relations, args),

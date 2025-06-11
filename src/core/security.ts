@@ -20,7 +20,7 @@ export class CoreSecurity implements Security {
 
   constructor() { }
 
-  @Inject(alias => Configuration)
+  @Inject((alias) => Configuration)
   protected config: Configuration;
 
   @Activate()
